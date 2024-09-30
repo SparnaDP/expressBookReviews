@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 let books = {
       1: {"author": "Chinua Achebe","title": "Things Fall Apart", "reviews": {} },
       2: {"author": "Hans Christian Andersen","title": "Fairy tales", "reviews": {} },
@@ -11,4 +13,16 @@ let books = {
       10: {"author": "Samuel Beckett","title": "Molloy, Malone Dies, The Unnamable, the trilogy", "reviews": {} }
 }
 
+let getBooks = new Promise((resolve, reject) => {
+      fs.readFile("./router/booksdb.json", (err, data) => {
+            if(err){
+                  reject(err);
+            }
+            else{
+                  resolve(JSON.parse(data));
+            }
+      });
+})
+
 module.exports=books;
+module.exports.getBooks = getBooks;
